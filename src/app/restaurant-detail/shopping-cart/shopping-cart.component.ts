@@ -19,7 +19,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   total(): number {
-    return this.cartService.total() + 8 //enquanto o frete está estatico na tela
+    return this.cartService.total()
   }
 
   clear() {
