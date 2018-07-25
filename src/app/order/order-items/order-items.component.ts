@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CartItem } from '../../restaurant-detail/shopping-cart/cart-item.model';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'mt-order-items',

@@ -1,4 +1,4 @@
-<div class="col-xs-12" *ngIf="!items; else itemsTableTemplate">
+<div class="col-xs-12" *ngIf="items.length === 0; else itemsTableTemplate">
   <p>
     Seu carrinho está vazio.
     <a [routerLink]="['/restaurants']">Escolha um restaurante</a> para fazer seu pedido!

@@ -23,6 +23,7 @@ import { OrderComponent } from './order/order.component';
 import { InputComponent } from './shared/input/input.component';
 import { RadioComponent } from './shared/radio/radio.component';
 import { OrderItemsComponent } from './order/order-items/order-items.component';
+import { OrderService } from './order/order.service';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { OrderItemsComponent } from './order/order-items/order-items.component';
   providers: [
     RestaurantService,
     ShoppingCartService,
+    OrderService,
     {provide: LOCALE_ID, useValue: 'pt-BR'} //i18n pro currency mostrar R$1,00 ao invés de R$1.00
   ],
   bootstrap: [AppComponent]
