@@ -370,5 +370,78 @@
       "restaurantId": "tasty-treats"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "address": "rua endereço",
+      "number": "22",
+      "optionalAddress": "",
+      "paymentOption": "REF",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuItemId": "zlasagna"
+        },
+        {
+          "quantity": 1,
+          "menuItemId": "greensandwich"
+        },
+        {
+          "quantity": 2,
+          "menuItemId": "ceasar"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "address": "avenida dde varias ruas",
+      "number": "111",
+      "optionalAddress": "",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 5,
+          "menuItemId": "donut"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "address": "Mais um endereço",
+      "number": "55",
+      "optionalAddress": "",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 3,
+          "menuItemId": "icestd.png"
+        },
+        {
+          "quantity": 1,
+          "menuItemId": "sunday"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "address": "Rua Pavimentada",
+      "number": "213",
+      "optionalAddress": "B",
+      "paymentOption": "DEB",
+      "orderItems": [
+        {
+          "quantity": 2,
+          "menuItemId": "burger"
+        },
+        {
+          "quantity": 1,
+          "menuItemId": "fries"
+        },
+        {
+          "quantity": 1,
+          "menuItemId": "coke.png"
+        }
+      ],
+      "id": 4
+    }
+  ]
 }
