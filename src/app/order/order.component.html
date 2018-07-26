@@ -3,8 +3,7 @@
 
 <section class="content">
   <section class="invoice">
-    <!--{{form.value | json}}-->
-    <form #form="ngForm" novalidate>
+    <form [formGroup]="orderForm" novalidate>
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
@@ -13,40 +12,49 @@
         </div>
       </div>
 
-      <div class="row invoice-info">
+      <div class="row">
+        <div class="col-xs-12">
+          <p>Seus Dados:</p>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <mt-input-container label="Nome" errorMessage="Campo obrigatório, mínimo 5 caracteres.">
+            <input type="text" formControlName="name" class="form-control" placeholder="Nome" autocomplete="off">
+          </mt-input-container>
+        </div>
+        <div class="col-sm-2 col-xs-6">
+          <mt-input-container label="E-mail" errorMessage="E-mail inválido.">
+            <input type="text" formControlName="email" class="form-control" placeholder="E-mail" autocomplete="off">
+          </mt-input-container>
+        </div>
+        <div class="col-sm-4 col-xs-6">
+          <mt-input-container label="Confirmação do e-mail" errorMessage="E-mail inválido.">
+            <input type="text" formControlName="emailConfirmation" class="form-control" placeholder="Confirmação do e-mail" autocomplete="off">
+          </mt-input-container>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-xs-12">
           <p class="lead">Endereço de Entrega:</p>
         </div>
 
         <div class="col-sm-6 col-xs-12">
-          <!--
-                <div class="form-group"
-                  [class.has-success]="iptAddress.valid && (iptAddress.dirty || iptAddress.touched)"
-                  [class.has-error]="!iptAddress.valid && (iptAddress.dirty || iptAddress.touched)">
-                  <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Endereço</label>
-                  <input type="text" name="address" ngModel required minlength="5" #iptAddress="ngModel"
-                    class="form-control" placeholder="Endereço" autocomplete="off">
-                  <span class="help-block" *ngIf="iptAddress.valid && (iptAddress.dirty || iptAddress.touched)"><i class="fa fa-check"></i> Ok</span>
-                  <span class="help-block" *ngIf="!iptAddress.valid && (iptAddress.dirty || iptAddress.touched)"><i class="fa fa-remove"></i> Help block with error</span>
-                </div>
-              -->
           <div class="form-group">
             <mt-input-container label="Endereço" errorMessage="Campo obrigatório, mínimo 5 caracteres.">
-              <input type="text" name="address" ngModel required minlength="5" class="form-control" placeholder="Endereço" autocomplete="off">
+              <input type="text" formControlName="address" class="form-control" placeholder="Endereço" autocomplete="off">
             </mt-input-container>
           </div>
         </div>
 
         <div class="col-sm-2 col-xs-6">
           <mt-input-container label="Número" errorMessage="Obrigatório, apenas números.">
-            <input type="text" name="number" ngModel required pattern="^[0-9]*$"
-            class="form-control" placeholder="Número" autocomplete="off">
+            <input type="text" formControlName="number" class="form-control" placeholder="Número" autocomplete="off">
           </mt-input-container>
         </div>
 
         <div class="col-sm-4 col-xs-6">
           <mt-input-container label="Complemento">
-            <input type="text" name="optionalAddress" ngModel class="form-control" placeholder="Complemento" autocomplete="off">
+            <input type="text" formControlName="optionalAddress" class="form-control" placeholder="Complemento" autocomplete="off">
           </mt-input-container>
         </div>
 
@@ -64,7 +72,7 @@
           (removeItem)="removeItem($event)">
         </mt-order-items>
       </div>
-      
+
 
       <div class="row">
 
@@ -72,7 +80,7 @@
           <p class="lead">Formas de Pagamento:</p>
 
           <div class="form-group">
-            <mt-radio [options]="paymentOptions" name="paymentOption" ngModel required></mt-radio>
+            <mt-radio [options]="paymentOptions" formControlName="paymentOption"></mt-radio>
           </div>
 
         </div>
@@ -80,9 +88,7 @@
         <div class="col-sm-6 col-xs-12">
           <p class="lead">Frete e Total:</p>
 
-          <mt-delivery-costs
-            [delivery]="delivery"
-            [itemsValue]="itemsValue()">
+          <mt-delivery-costs [delivery]="delivery" [itemsValue]="itemsValue()">
           </mt-delivery-costs>
         </div>
 
@@ -92,8 +98,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <button class="btn btn-success pull-right" (click)="checkoutOrder(form.value)"
-          [disabled]="!form.valid || cartItems().length === 0">
+        <button class="btn btn-success pull-right" (click)="checkoutOrder(orderForm.value)" [disabled]="!orderForm.valid || cartItems().length === 0">
           <i class="fa fa-credit-card"></i> Concluir Pedido
         </button>
       </div>
