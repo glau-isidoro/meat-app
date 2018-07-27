@@ -13,8 +13,13 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-9">
           <p>Seus Dados:</p>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <span class="help-block pull-right has-error-block" *ngIf="orderForm.hasError('emailsDontMatch')">
+              <i class="fa fa-remove"></i> E-mails não conferem
+            </span>
         </div>
         <div class="col-sm-6 col-xs-12">
           <mt-input-container label="Nome" errorMessage="Campo obrigatório, mínimo 5 caracteres.">

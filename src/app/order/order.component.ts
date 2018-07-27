@@ -4,7 +4,7 @@ import { OrderService } from './order.service';
 import { CartItem } from '../restaurant-detail/shopping-cart/cart-item.model';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -41,7 +41,21 @@ export class OrderComponent implements OnInit {
       number: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       optionalAddress: this.formBuilder.control(''),
       paymentOption: this.formBuilder.control('', [Validators.required])
-    })
+    }, {validator: OrderComponent.equalsTo})
+    //é possível criar validadores para o grupo todo, e verificar ao mesmo tempo campos diferentes.
+    //ex: email e confirmação de email.
+  }
+
+  static equalsTo(group: AbstractControl): {[key:string]: boolean} {
+    const email = group.get('email')
+    const emailConfirmation = group.get('emailConfirmation')
+    if(!emailConfirmation || !email) {
+      return undefined
+    }
+    if (email.value !== emailConfirmation.value) {
+      return {emailsDontMatch: true}
+    }
+    return undefined
   }
 
   cartItems(): CartItem[] {
