@@ -34,7 +34,6 @@ import { RatingComponent } from './shared/rating/rating.component';
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    AboutComponent,
     RestaurantsComponent,
     RestaurantComponent,
     RestaurantDetailComponent,
