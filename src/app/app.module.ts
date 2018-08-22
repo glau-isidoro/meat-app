@@ -3,6 +3,9 @@ import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { registerLocaleData } from '@angular/common'
+import localePt from '@angular/common/locales/pt'
+registerLocaleData(localePt, 'pt')
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -47,7 +50,7 @@ import { ApplicationErrorHandler } from './app.error-handler';
     SharedModule.forRoot()
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt-BR'}, //i18n pro currency mostrar R$1,00 ao invés de R$1.00
+    {provide: LOCALE_ID, useValue: 'pt'}, //i18n pro currency mostrar R$1,00 ao invés de R$1.00
     {provide: ErrorHandler, useClass: ApplicationErrorHandler}
   ],
   bootstrap: [AppComponent]
