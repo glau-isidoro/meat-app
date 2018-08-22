@@ -3,11 +3,8 @@ import { Restaurant } from './restaurant/restaurant.model';
 import { RestaurantService } from './restaurants.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/from';
-import { Observable } from 'rxjs/Observable';
+import { Observable, from } from 'rxjs';
+import { debounceTime, distinctUntilChanged, catchError, switchMap } from 'rxjs/operators'
 
 @Component({
   selector: 'mt-restaurants',
@@ -38,7 +35,7 @@ export class RestaurantsComponent implements OnInit {
   searchControl: FormControl
 
   constructor(private restaurantService: RestaurantService,
-              private fb: FormBuilder) { }
+    private fb: FormBuilder) { }
 
   ngOnInit() {
     this.searchControl = this.fb.control('')
@@ -47,12 +44,14 @@ export class RestaurantsComponent implements OnInit {
     })
 
     this.searchControl.valueChanges //pega valor da barra search cada vez que uma letra é digitada
-      .debounceTime(500) //não passa pra frente se o valor estiver mudando muito rapido
-      .distinctUntilChanged() //não passa pra frente se o valor for igual ao anterior (não repete a mesma busca duas vezes seguidas)
-      .switchMap(searchTerm =>
-        this.restaurantService
-          .getRestaurants(searchTerm)
-          .catch(error => Observable.from([]))
+      .pipe(
+        debounceTime(500), //não passa pra frente se o valor estiver mudando muito rapido
+        distinctUntilChanged(), //não passa pra frente se o valor for igual ao anterior (não repete a mesma busca duas vezes seguidas)
+        switchMap(searchTerm =>
+          this.restaurantService
+            .getRestaurants(searchTerm)
+            .pipe(catchError(error => from([])))
+        )
       ).subscribe(restaurants => this.restaurants = restaurants);
 
     this.restaurantService
