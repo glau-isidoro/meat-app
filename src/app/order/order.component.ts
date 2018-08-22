@@ -4,7 +4,7 @@ import { OrderService } from './order.service';
 import { CartItem } from '../restaurant-detail/shopping-cart/cart-item.model';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import 'rxjs/add/operator/do';
 
 @Component({
@@ -36,15 +36,26 @@ export class OrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.orderForm = this.formBuilder.group({
-      name: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
-      email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
-      emailConfirmation: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
-      address: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
-      number: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
-      optionalAddress: this.formBuilder.control(''),
-      paymentOption: this.formBuilder.control('', [Validators.required])
-    }, {validator: OrderComponent.equalsTo})
+    this.orderForm = new FormGroup({
+      name: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(5)]
+        //updateOn: 'blur' se quiser colocar em todos os campos, pode deixar no construtor de FormGroup
+      }),
+      email: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(this.emailPattern)]
+      }),
+      emailConfirmation: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(this.emailPattern)]
+      }),
+      address: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(5)]
+      }),
+      number: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(this.numberPattern)]
+      }),
+      optionalAddress: new FormControl(''),
+      paymentOption: new FormControl('', {validators: [Validators.required]})
+    }, {validators: [OrderComponent.equalsTo], updateOn: 'blur'})
     //é possível criar validadores para o grupo todo, e verificar ao mesmo tempo campos diferentes.
     //ex: email e confirmação de email.
   }
